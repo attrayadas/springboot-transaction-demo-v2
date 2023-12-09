@@ -10,6 +10,9 @@ import com.attraya.repository.PaymentInfoRepository;
 import com.attraya.utils.PaymentUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -22,6 +25,7 @@ public class FlightBookingService {
     @Autowired
     private PaymentInfoRepository paymentInfoRepository;
 
+    @Transactional //(readOnly = false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public FlightBookingAcknowledgement bookFlightTicket(FlightBookingRequest request){
 
         PassengerInfo passengerInfo = request.getPassengerInfo();
